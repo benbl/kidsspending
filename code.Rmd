@@ -1,0 +1,30 @@
+---
+title: "State-by-State Spending on Kids"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+library(reshape2)
+```
+
+```{r}
+#Read in Data
+data <- read_excel('State-by-State Spending on Kids_0.xlsx')
+```
+
+```{r}
+#Reshape data
+melted_data <- data %>% melt(.,id.var="state")
+#Plot
+melted_data %>%
+  ggplot(.,aes(variable, value, group = state)) +
+  geom_line() +
+  theme(axis.text.x = element_text(angle = 90), axis.title.x = element_blank())
+```
+
